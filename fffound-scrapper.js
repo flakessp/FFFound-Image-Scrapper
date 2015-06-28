@@ -1,23 +1,31 @@
 if (Meteor.isClient) {
-  // counter starts at 0
-  Session.setDefault('counter', 0);
-
-  Template.hello.helpers({
-    counter: function () {
-      return Session.get('counter');
+  Meteor.call('getImages', function (error, result) {
+    if (error) {
+      console.log('error', error);
     }
+    console.log('result');
+
+    Session.set('fffounds', result);
   });
 
-  Template.hello.events({
-    'click button': function () {
-      // increment the counter when button is clicked
-      Session.set('counter', Session.get('counter') + 1);
+  Template.fffounds.helpers({
+    imagesStack: function () {
+      return Session.get('fffounds');
     }
   });
 }
 
 if (Meteor.isServer) {
   Meteor.startup(function () {
-    // code to run on server at startup
+    var cheerio = Meteor.npmRequire("cheerio");
+
+    Meteor.methods({
+      getImages: function(){
+        result = Meteor.http.get("http://ffffound.com/")
+        $ = cheerio.load(result.content);
+        var resp = $('.header');
+        return resp;
+      }
+    })
   });
 }
