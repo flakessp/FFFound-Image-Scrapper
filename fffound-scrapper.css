@@ -1,1 +1,8 @@
 /* CSS declarations go here */
+.image{
+	display: inline-block;
+	width: 23%;
+}
+.image img{
+	width: 100%;
+}

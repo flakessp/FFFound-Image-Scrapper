@@ -13,12 +13,11 @@ if (Meteor.isClient) {
     Session.set("images", result);
   });
 
-  Template.tweets.helpers({
-    rant: function () {
-      return Session.get("images");
+  Template.imageList.helpers({
+    images: function () {
+      return Images.find().fetch();
     }
   });
-
 }
 
 if (Meteor.isServer) {
@@ -27,18 +26,22 @@ if (Meteor.isServer) {
 
     Meteor.methods({
       getImages: function () {
-        result = Meteor.http.get("http://ffffound.com/");
+        result = Meteor.http.get("http://ffffound.com/?offset=25");
         $ = cheerio.load(result.content);
-        // var open = $('div.permalink-inner.permalink-tweet-container > div > div > p').text();
+
         data = $(".description").html();
 
         var images = [];
         $('.description').each(function(i, elem) {
           images[i] = $(this).html().split('<br>')[0];
+
+          if(images[i].substr(0,7) != 'http://') images[i] = 'http://' + images[i];
+          
           console.log(images[i]);
+          // checking for uniqueness
           var postWithSameLink = Images.findOne({link: images[i]});
           if (postWithSameLink) return true;
-          
+          // end check
           Images.insert(
             {
               link: images[i]

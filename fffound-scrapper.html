@@ -1,14 +1,21 @@
 <head>
-  <title>tweetsapp</title>
+  <title>images from Fffound</title>
 </head>
 
 <body>
-  <h1>Tweet app </h1>
+  <h1>images from Fffound </h1>
 
-  {{> tweets }}
+  {{> imageList }}
 </body>
 
-<template name="tweets">
-  <h1>Rant!</h1>
-  {{ rant }}
+<template name="imageList">
+  {{#each images}}
+  		{{> imageItem}}
+  {{/each}}
+</template>
+
+<template name="imageItem">
+	<div class="image">
+		<img src="{{link}}" alt="">
+	</div>
 </template>
