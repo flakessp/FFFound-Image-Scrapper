@@ -11,6 +11,6 @@
 
   Template.imageList.helpers({
     images: function () {
-      return Images.find().fetch();
+      return Images.find({}, {sort: {submitted: 1}});
     }
   });
