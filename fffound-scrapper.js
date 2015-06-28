@@ -36,12 +36,14 @@ if (Meteor.isServer) {
         $('.description').each(function(i, elem) {
           images[i] = $(this).html().split('<br>')[0];
           console.log(images[i]);
+          var postWithSameLink = Images.findOne({link: images[i]});
+          if (postWithSameLink) return true;
+          
           Images.insert(
             {
               link: images[i]
             });
         });
-        
         return images;
       }
     });
