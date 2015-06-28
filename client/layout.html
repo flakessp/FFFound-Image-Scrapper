@@ -1,0 +1,23 @@
+<template name="layout">
+	<div class="layout">
+		<header class="navbar">
+	      <div class="navbar-inner">
+	        <a class="brand" href="/">images from fffound</a>
+	      </div>
+	    </header>
+		{{> yield}}
+	</div>	
+</template>
+
+
+<template name="imageList">
+  {{#each images}}
+  		{{> imageItem}}
+  {{/each}}
+</template>
+
+<template name="imageItem">
+	<div class="image">
+		<a href="{{pathFor 'imagePage'}}"><img src="{{link}}" alt=""></a>
+	</div>
+</template>
