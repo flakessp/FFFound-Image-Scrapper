@@ -7,12 +7,13 @@ Meteor.startup(function () {
       $ = cheerio.load(result.content);
       $('.topictitle').each(function(){
         var now = new Date().getTime();
-        var link = 'http://forums.overclockers.ru/viewtopic.php?f='+$(this).attr('href').split('f=')[1];
+        var link = 'http://forums.overclockers.ru/viewtopic.php?f='+$(this).attr('href').split('f=')[1].split('&sid')[0];
+        var postWithSameLink = Images.findOne({link: link});
+        if (postWithSameLink) return true;
         var title = $(this).text();
         var result2 = Meteor.http.get(link);
         var cheerioInside = cheerio.load(result2.content);
         var postContent = cheerioInside('.postbody').html();
-        console.log(postContent);
         Images.insert(
           {
             link: link,
@@ -20,7 +21,6 @@ Meteor.startup(function () {
             submitted: now,
             content:  postContent
           });
-          console.log('OK')
       });
     }
   });
