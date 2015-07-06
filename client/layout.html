@@ -7,7 +7,7 @@
 		      </div>
 		    </header>
 			{{> yield}}
-		</div>	
+		</div>
 	</div>
 </template>
 
@@ -19,7 +19,6 @@
 </template>
 
 <template name="imageItem">
-	<div class="image">
-		<a href="{{pathFor 'imagePage'}}"><img src="{{link}}" alt=""></a>
-	</div>
+	<p><a href="{{link}}">{{link}}</a></p>
+	<p><a href="{{pathFor 'imagePage'}}">{{title}}</a></p>
 </template>
