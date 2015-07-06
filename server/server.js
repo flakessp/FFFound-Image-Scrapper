@@ -5,21 +5,23 @@ Meteor.startup(function () {
     getImages: function () {
       result = Meteor.http.get("http://forums.overclockers.ru/viewforum.php?f=85");
       $ = cheerio.load(result.content);
-      var images = [];
-      $('.topictitle').each(function(i,elem){
+      $('.topictitle').each(function(){
         var now = new Date().getTime();
         var link = 'http://forums.overclockers.ru/viewtopic.php?f='+$(this).attr('href').split('f=')[1];
         var title = $(this).text();
-
+        var result2 = Meteor.http.get(link);
+        var cheerioInside = cheerio.load(result2.content);
+        var postContent = cheerioInside('.postbody').html();
+        console.log(postContent);
         Images.insert(
           {
             link: link,
             title: title,
-            submitted: now
+            submitted: now,
+            content:  postContent
           });
+          console.log('OK')
       });
-
-      return images;
     }
   });
 
