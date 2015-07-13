@@ -1,16 +1,16 @@
-//иницилизируем глобальную переменную 
+//иницилизируем глобальную переменную
   images =[];
   // без слова var
 
-  Meteor.call('getImages', function (error, result) {
+  Meteor.call('getPosts', function (error, result) {
     if (error) {
       console.log("error", error);
-    };
-    Session.set("images", result);
+    }
+    Session.set("posts", result);
   });
 
-  Template.imageList.helpers({
-    images: function () {
-      return Images.find({}, {sort: {submitted: 1}});
+  Template.postList.helpers({
+    posts: function () {
+      return Posts.find({}, {sort: {dateSubmit: -1}});
     }
   });

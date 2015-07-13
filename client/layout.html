@@ -3,7 +3,7 @@
 		<div class="layout">
 			<header class="navbar">
 		      <div class="navbar-inner">
-		        <a class="brand" href="/">images from fffound</a>
+		        <a class="brand" href="/">overclockers scrapper</a>
 		      </div>
 		    </header>
 			{{> yield}}
@@ -12,13 +12,17 @@
 </template>
 
 
-<template name="imageList">
-  {{#each images}}
-  		{{> imageItem}}
+<template name="postList">
+  {{#each posts}}
+  		{{> postItem}}
   {{/each}}
 </template>
 
-<template name="imageItem">
-	<small><a href="{{link}}">{{link}}</a></small>
-	<p class="lead"><a href="{{pathFor 'imagePage'}}">{{title}}</a></p>
+<template name="postItem">
+	<div class="panel panel-default">
+	  <div class="panel-body">
+			<a href="{{pathFor 'postPage'}}"><p>{{title}}</p></a>{{dateSubmit}}
+			<h6><a href="{{link}}">{{link}}</a></h6>
+	  </div>
+</div>
 </template>
